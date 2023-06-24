@@ -1,0 +1,50 @@
+<div class="container">
+    <h1 class="title">HISTORIAL DE DATOS DE USUARIO</h1>
+
+    <div class="scrollable-container">
+        <div class="card-list">
+            <mat-card *ngFor="let cardData of cardList" style="width: 80vw; padding: 20px; border-radius: 20px; margin-bottom: 15px;">
+                <mat-card-header style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 10px;">
+                    <div style="grid-column: 1">
+                        <mat-card-title>Datos del crédito: </mat-card-title>
+                        <mat-card-content>
+                            <h3>Moneda usada: {{cardData.moneda}}</h3>
+                            <h3>Valor del inmueble: {{setMoneyTipe(cardData.moneda)}} {{cardData.valorInmueble}}</h3>
+                            <h3>Cuota Inicial: {{setMoneyTipe(cardData.moneda)}} {{cardData.cuotaInicial}}</h3>
+                            <h3>Apoyo Habitacional: {{cardData.apoyoHabitacional}}</h3>
+                            <div *ngIf="cardData.apoyoHabitacional != 'Yes'">
+                                <h3>Sostenibilidad de la vivienda: {{cardData.sostenibilidad}}</h3>
+                                <h3>Total Bono del Buen Pagador: {{setMoneyTipe(cardData.moneda)}} {{cardData.totalBBP}}</h3>
+                            </div>
+                            <h3>Periodo de gracia total: {{cardData.perTotal}}</h3>
+                            <h3>Periodo de gracia parcial: {{cardData.perParcial}}</h3>
+                        </mat-card-content>
+                    </div>
+                    <div style="grid-column: 2 ">
+                        <mat-card-title>Datos de la entidad financiera: </mat-card-title>
+                        <mat-card-content>
+                            <h3>Nombre de la entidad: {{cardData.entidadFinanciera.nombreEntidad}}</h3>
+                            <h3>Tipo de tasa: {{cardData.entidadFinanciera.tipoTasa}}</h3>
+                            <div *ngIf="cardData.entidadFinanciera.tipoTasa !== 'efectiva'">
+                                <h3>Tipo de Tasa Nominal: {{cardData.entidadFinanciera.tipoTasaNominal}}</h3>
+                                <h3>Tipo de capitalización: {{cardData.entidadFinanciera.tipoCapitalizacion}}</h3>
+                            </div>
+                            <h3>Valor de la tasa: {{cardData.entidadFinanciera.valorTasa}}%</h3>
+                            <h3>Plazo en meses: {{cardData.entidadFinanciera.plazo}}</h3>
+                            <h3>Seguro Desgravamen: {{cardData.entidadFinanciera.segDesgravamen}}%</h3>
+                            <h3>Seguro del Inmueble Anual: {{cardData.entidadFinanciera.segInmueble}}%</h3>
+                        </mat-card-content>
+                    </div>
+                    <div style="grid-column: 3 ">
+                        <mat-card-title>Datos del usuario: </mat-card-title>
+                        <mat-card-content>
+                            <h3>Nombres y apellidos: {{cardData.user.name}}</h3>
+                            <h3>Nombre de usuario: {{cardData.user.userName}}</h3>
+                            <h3>Email del usuario: {{cardData.user.email}}</h3>
+                        </mat-card-content>
+                    </div>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </div>
+</div>

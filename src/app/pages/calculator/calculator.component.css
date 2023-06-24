@@ -1,0 +1,60 @@
+.container{
+    display: grid;
+    justify-content: center;
+    color: black;
+    position: fixed;
+    margin-left: 1vw;
+}
+
+.scrollable-container{
+    height: 62vh;
+    overflow-y: auto;
+}
+
+.title{
+    color: white;
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    margin: 3vh;
+}
+
+.card{
+    background-color: white;
+    border-radius: 20px;
+    width: 85vw;
+    height: 79vh;
+    padding: 20px;
+}
+
+.subtitle{
+    font-size: 25px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 5px 30px;
+}
+
+.mat-button-toggle{
+    width: 12vw;
+}
+
+.mat-button-toggle-group{
+    height: 6vh;
+}
+
+
+.inputs{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    margin: 0px 0px -20px;
+}
+
+.toggles{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+}
+
+.button-green{
+    background-color: green;
+    color: white;
+}

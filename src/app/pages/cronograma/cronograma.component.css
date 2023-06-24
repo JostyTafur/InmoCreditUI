@@ -1,0 +1,48 @@
+.container{
+    display: grid;
+    justify-content: center;
+    color: black;
+    position: fixed;
+    margin-left: 1vw;
+}
+
+.title{
+    color: white;
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    margin: 3vh;
+}
+
+.scrollable-container{
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.card1{
+    background-color: white;
+    border-radius: 20px;
+    width: max-content;
+    height: 79vh;
+    padding: 20px;
+}
+
+.card2{
+    background-color: white;
+    border-radius: 20px;
+    width: 20vw;
+    height: 79vh;
+    padding: 20px;
+    margin: 0px 15px;
+}
+
+table{
+    width: 60vw;
+    height: 80vh;
+}
+
+.subtext{
+    align-self: center;
+    font-family: 'Inter' 'sans-serif';
+    font-weight: 400;
+}

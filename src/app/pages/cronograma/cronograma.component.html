@@ -1,0 +1,76 @@
+<div class="container">
+    <h1 class="title">CRONOGRAMA DE PAGOS</h1>
+    <div style="display: grid; grid-template-columns: 72% 28%;">
+        <div class="card1">
+            <div class="scrollable-container">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <ng-container matColumnDef="periodo">
+                        <th mat-header-cell *matHeaderCellDef> Periodo </th>
+                        <td mat-cell *matCellDef="let element"> {{element.periodo}} </td>
+                      </ng-container>
+                    
+                      <ng-container matColumnDef="saldoinicial">
+                        <th mat-header-cell *matHeaderCellDef> Saldo Inicial </th>
+                        <td mat-cell *matCellDef="let element">{{moneda}} {{element.saldoinicial}} </td>
+                      </ng-container>
+                
+                      <ng-container matColumnDef="interes">
+                        <th mat-header-cell *matHeaderCellDef> Interés </th>
+                        <td mat-cell *matCellDef="let element">{{moneda}} {{element.interes}} </td>
+                      </ng-container>
+                    
+                      <ng-container matColumnDef="amortizacion">
+                        <th mat-header-cell *matHeaderCellDef> Amortización </th>
+                        <td mat-cell *matCellDef="let element">{{moneda}} {{element.amortizacion}} </td>
+                      </ng-container>
+                
+                      <ng-container matColumnDef="segdes">
+                        <th mat-header-cell *matHeaderCellDef> Seg. Desgravamen </th>
+                        <td mat-cell *matCellDef="let element">{{moneda}} {{element.segdes}} </td>
+                      </ng-container>
+                
+                      <ng-container matColumnDef="segInm">
+                        <th mat-header-cell *matHeaderCellDef> Seg. Inmueble </th>
+                        <td mat-cell *matCellDef="let element">{{moneda}} {{element.segInm}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="cuota">
+                        <th mat-header-cell *matHeaderCellDef> Cuota </th>
+                        <td mat-cell *matCellDef="let element">{{moneda}} {{element.cuota}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="saldofinal">
+                        <th mat-header-cell *matHeaderCellDef> Saldo Final </th>
+                        <td mat-cell *matCellDef="let element">{{moneda}} {{element.saldofinal}} </td>
+                      </ng-container>
+                    
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        </div>
+        <div class="card2">
+            <div style="display: flex; flex-direction: column; align-items: center; ">
+                <h2 style="align-self: center; font-family: 'Inter' sans-serif; font-weight: 500; font-size: 25px;">Resultados</h2>
+                <!--<div style="margin: 4px 0px; display: flex; flex-direction: column;">
+                    <h3 class="subtext">TCEA</h3>
+                    <mat-form-field appearance="outline">
+                        <input matInput readonly="true" [ngModel]="TCEA" style="text-align: center;">
+                    </mat-form-field>
+                </div>-->
+                <div style="margin: 4px 0px; display: flex; flex-direction: column;">
+                    <h3 class="subtext">Valor Actual Neto</h3>
+                    <mat-form-field appearance="outline">
+                        <input matInput readonly="true" [ngModel]="VAN" style="text-align: center;">
+                    </mat-form-field>
+                </div>
+                <!--<div style="margin: 4px 0px; display: flex; flex-direction: column;">
+                    <h3 class="subtext">TIR</h3>
+                    <mat-form-field appearance="outline">
+                        <input matInput readonly="true" [ngModel]="TIR" style="text-align: center;">
+                    </mat-form-field>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>

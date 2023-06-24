@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="left-column">
+        <img src="../../../assets/images/logo-inmocredit.png" alt="logo inmocredit" class="logo">
+        <h1 style="font-weight: 600; font-family: 'Inter', sans-serif;">Registrate</h1>
+        <!-- Formulario -->
+        <form (ngSubmit)="onRegister()" [formGroup]="form" autocomplete="off" class="form-container">
+            <div>
+                <h3 class="form-title">Nombres y Apellidos</h3>
+                <mat-form-field>
+                    <input matInput type="text" name="fullname" id="fullname" placeholder="Ingrese sus nombres y apellidos" formControlName="fullname" style="font-size: 16px;"/>
+                </mat-form-field>
+            </div>
+            <div>
+                <h3 class="form-title">Nombre de usuario</h3>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Ingrese nombre de usuario" formControlName="userName" style="font-size: 16px;"/>
+                </mat-form-field>
+            </div>
+            <div>
+                <h3 class="form-title">Email</h3>
+                <mat-form-field>
+                    <input matInput type="email" placeholder="Ingrese correo electronico" formControlName="email" style="font-size: 16px;"/>
+                </mat-form-field>
+            </div>
+            <div>
+                <h3 class="form-title">Contraseña</h3>
+                <mat-form-field>
+                    <input matInput  [type]="hidePassword ? 'password' : 'text'" name="password" id="password" placeholder="Ingrese contraseña" formControlName="password" style="font-size: 16px;"/>
+                    <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                        {{ hidePassword ? 'visibility_off' : 'visibility' }}
+                      </mat-icon>
+                </mat-form-field>
+            </div>
+            <div>
+                <button type="submit" mat-raised-button color="primary" class="btn-login">Register</button>
+            </div>
+            <div style="margin-top: 20px;">
+                <h4>Tienes una cuenta <a href="auth/login"> Inicia Sesión </a></h4>
+            </div>
+        </form>
+    </div>
+    <div class="right-column">
+        <!-- Título y texto -->
+        <div>
+            <h1 class="title">Bienvenido a </h1>
+            <h1 class="title">Inmocredit </h1>
+            <p class="slogan">Socio confiable en créditos inmobiliarios</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<!--<mat-toolbar color="primary">
+    <h1>App Bookings</h1>
+    <div class="mat-spacer"></div>
+    <a mat-button *ngIf="isLogged" [routerLink]="'/'">Inicio</a>
+    <a mat-button *ngIf="isLogged" [routerLink]="'/customers'">Customers</a>
+    <a mat-button *ngIf="!isLogged" [routerLink]="'/login'">Iniciar Sesión</a>
+    <a mat-button *ngIf="isLogged" (click)="onLogOut()" >Cerrar Sesión</a>
+</mat-toolbar>-->
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" [opened]="isMenuOpen" [fixedInViewport]="isMenuOpen" class="mat-elevation-z8">
+      <mat-nav-list>
+        <div>
+          <img src="../../assets/images/icon-inmocredit.png" alt="icon" style="max-width: 100%; height: auto;">
+        </div>
+        <a mat-list-item routerLink="/calculator">
+          <div class="anchor-content">
+            <mat-icon class="sidebar-icon">exposure</mat-icon>
+            <span>Calculadora</span>
+          </div>
+        </a>
+        <a mat-list-item routerLink="/cronograma">
+          <div class="anchor-content">
+            <mat-icon class="sidebar-icon">event</mat-icon>
+            <span>Cronograma</span>
+          </div>
+        </a>
+        <a mat-list-item routerLink="/historial" *ngIf="isAdmin">
+          <div class="anchor-content">
+            <mat-icon class="sidebar-icon">history</mat-icon>
+            <span style="text-align: center;"> Visualizacion de Historial</span>
+          </div>
+        </a>
+        <a mat-list-item (click)="onLogOut()">
+          <div class="anchor-content">
+            <mat-icon class="sidebar-icon">exit_to_app</mat-icon>
+            <span style="text-align: center;">Cerrar Sesion</span>
+          </div>
+        </a>
+      </mat-nav-list>
+      <div>
+       
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="content">
+        <ng-content></ng-content>
+      </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

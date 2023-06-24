@@ -1,0 +1,176 @@
+<div class="container">
+    <h1 class="title">CALCULADORA DE CRÉDITO</h1>
+
+    <form class="card" #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" [formGroup]="form">
+        <h3 class="subtitle">Ingreso de Datos</h3>
+
+        <div class="scrollable-container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr;">
+                <div style="display: flex; flex-direction: column; margin: 10px; gap: 5px;">
+                    <div class="toggles">
+                        <h4 style="margin: 10px 30px;">Moneda</h4>
+                        <mat-button-toggle-group name="moneda" aria-label="Moneda" [(ngModel)]="moneda" [ngModelOptions]="{standalone: true}">
+                            <mat-button-toggle value="Soles">Soles</mat-button-toggle>
+                            <mat-button-toggle value="Dolares">Dólares</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                    <div class="inputs">
+                        <h4 style="margin: 10px 30px;">Valor del Inmueble</h4>
+                        <mat-form-field appearance="outline" floatLabel="always" >
+                            <mat-label>Ingrese el valor del inmueble</mat-label>
+                            <div style="display: flex;">
+                                <span matTextPrefix *ngIf="moneda =='Soles'">S/&nbsp;</span>
+                                <span matTextPrefix *ngIf="moneda =='Dolares'">$&nbsp;</span>
+                                <input matInput type="number" placeholder="Placeholder" formControlName="valInmueble" [(ngModel)]="valInm">
+                            </div>
+                          </mat-form-field>
+                    </div>
+                    <div class="inputs">
+                        <h4 style="margin: 10px 30px;">Cuota Inicial</h4>
+                        <mat-form-field appearance="outline" floatLabel="always">
+                            <mat-label>Ingrese la cuota inicial</mat-label>
+                            <div style="display: flex;">
+                                <span matTextPrefix *ngIf="moneda =='Soles'">S/&nbsp;</span>
+                                <span matTextPrefix *ngIf="moneda =='Dolares'">$&nbsp;</span>
+                                <input matInput type="number" placeholder="Cuota inicial" formControlName="cuotaInicial" [(ngModel)]="initialCuota">
+                            </div>
+                          </mat-form-field>
+                    </div>
+                    <div class="toggles">
+                        <h4 style="margin: 10px 30px;">Apoyo Habitacional</h4>
+                        <mat-button-toggle-group name="apoyo" [(ngModel)]="apoyo" [ngModelOptions]="{standalone: true}" aria-label="Apoyo" (ngModelChange)="actualizeDisabledBBP()">
+                            <mat-button-toggle value="Yes">Sí</mat-button-toggle>
+                            <mat-button-toggle value="No">No</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                    <div>
+                        <div class="toggles">
+                            <h4 style="margin: 10px 30px;">Sostenibilidad de la vivienda</h4>
+                            <mat-button-toggle-group name="sostein" [(ngModel)]="sostein" [ngModelOptions]="{standalone: true}" aria-label="Sostein" (ngModelChange)="calculateBBP()">
+                                <mat-button-toggle value="Yes" [disabled]="disableBBP">Sí</mat-button-toggle>
+                                <mat-button-toggle value="No" [disabled]="disableBBP">No</mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                        <div class="inputs">
+                            <h4 style="margin: 10px 30px;" >Total Bono del Buen Pagador</h4>
+                            <mat-form-field appearance="outline">
+                                <mat-label>BBP</mat-label>
+                                <input matInput placeholder="Placeholder" [readonly]="true" [value]="bbp">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inputs">
+                            <h4 style="margin: 10px 30px;">Periodos de gracia total</h4>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ingrese el numero de periodos de gracia</mat-label>
+                                <input matInput type="number" placeholder="Placeholder" formControlName="timeGraciaTotal" [(ngModel)]="perTotal" [disabled]="gracia =='No'">
+                              </mat-form-field>
+                        </div>
+                        <div class="inputs">
+                            <h4 style="margin: 10px 30px;">Periodos de gracia parcial</h4>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ingrese el numero de periodos de gracia</mat-label>
+                                <input matInput type="number" placeholder="Placeholder" formControlName="timeGraciaParc" [(ngModel)]="perParcial">
+                              </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            
+                <div style="display: flex; flex-direction: column; margin: 10px; gap: 5px;">
+                    <div class="inputs">
+                        <h4 style="margin: 10px 30px;">Entidad Financiera</h4>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ingrese el nombre de la entidad financiera</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName="entFinanciera" [(ngModel)]="entFinanciera">
+                          </mat-form-field>
+                    </div>
+                    <div class="toggles">
+                        <h4 style="margin: 10px 30px;">Tasa de Interés</h4>
+                        <mat-button-toggle-group name="tasaInteres" [(ngModel)]="tasaInteres" [ngModelOptions]="{standalone: true}" aria-label="Tasa de interes" (ngModelChange)="actualizeDisableNominal()">
+                            <mat-button-toggle value="efectiva">Efectiva Anual</mat-button-toggle>
+                            <mat-button-toggle value="nominal">Nominal</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                    <div>
+                        <div class="inputs">
+                            <h4 style="margin: 10px 30px;">Tipo de tasa nominal</h4>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Selecciona una opción</mat-label>
+                                <mat-select formControlName="tipoTasaNom" [(ngModel)]="tipoTasaNom" [disabled]="disableNominal">
+                                    <mat-option value=1>Diario</mat-option>
+                                    <mat-option value=15>Quincenal</mat-option>
+                                    <mat-option value=30>Mensual</mat-option>
+                                    <mat-option value=60>Bimestral</mat-option>
+                                    <mat-option value=90>Trimestral</mat-option>
+                                    <mat-option value=120>Cuatrimestral</mat-option>
+                                    <mat-option value=180>Semestral</mat-option>
+                                    <mat-option value=360>Anual</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="inputs">
+                            <h4 style="margin: 10px 30px;">Tipo de capitalización</h4>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Selecciona una opción</mat-label>
+                                <mat-select formControlName="tipoCap" [(ngModel)]="tipoCap" [disabled]="disableNominal">
+                                    <mat-option value=1>Diario</mat-option>
+                                    <mat-option value=15>Quincenal</mat-option>
+                                    <mat-option value=30>Mensual</mat-option>
+                                    <mat-option value=60>Bimestral</mat-option>
+                                    <mat-option value=90>Trimestral</mat-option>
+                                    <mat-option value=120>Cuatrimestral</mat-option>
+                                    <mat-option value=180>Semestral</mat-option>
+                                    <mat-option value=360>Anual</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <h4 style="margin: 10px 30px;">Valor de la tasa</h4>
+                        <mat-form-field appearance="outline" floatLabel="always">
+                            <mat-label>Ingrese el valor de la tasa de interes</mat-label>
+                            <div style="display: flex;">
+                                <span matTextPrefix>%&nbsp;</span>
+                                <input matInput type="number" placeholder="Tasa de interes" formControlName="valorTasa" [(ngModel)]="valTasa">
+                            </div>
+                          </mat-form-field>
+                    </div>
+                    <div class="inputs">
+                        <h4 style="margin: 10px 30px;">Plazo (en meses)</h4>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ingrese el plazo en meses</mat-label>
+                            <input matInput type="number" placeholder="Plazo en meses" formControlName="plazoMeses" [(ngModel)]="plazoTotal">
+                          </mat-form-field>
+                    </div>
+                    <div class="inputs">
+                        <h4 style="margin: 10px 30px;">Seguro Desgravamen</h4>
+                        <mat-form-field appearance="outline" floatLabel="always">
+                            <mat-label>Ingrese el porcentaje de seguro Desgravamen</mat-label>
+                            <div style="display: flex;">
+                                <span matTextPrefix>%&nbsp;</span>
+                                <input matInput type="number" placeholder="Seguro Desgravamen" formControlName="segDes" [(ngModel)]="segDes">
+                            </div>
+                          </mat-form-field>
+                    </div>
+                    <div class="inputs">
+                        <h4 style="margin: 10px 30px;">Seguro de Inmueble Anual</h4>
+                        <mat-form-field appearance="outline" floatLabel="always">
+                            <mat-label>Ingrese el porcentaje de seguro de inmueble anual</mat-label>
+                            <div style="display: flex;">
+                                <span matTextPrefix>%&nbsp;</span>
+                                <input matInput type="number" placeholder="Seguro de inmueble anual" formControlName="segInmueble"  [(ngModel)]="segInm">
+                            </div>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 20px 40px;">
+            <button mat-button class="button-green" (click)="clean()">Limpiar</button>
+            <button type="submit" mat-button class="button-green">Crear Cronograma de Pagos</button>
+        </div>
+    </form>
+
+</div>

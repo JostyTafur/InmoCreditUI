@@ -1,0 +1,41 @@
+.mat-sidenav {
+    width: 120px; /* Ancho inicial de la barra de menú lateral */
+    background-color: #f3632f;
+  }
+  
+.mat-sidenav-container {
+    height: 99vh;
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-image: url('../../assets/images/bg-menu.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 10px;
+  }
+  
+  .anchor-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar-icon {
+    font-size: 250%; /* Ajusta el porcentaje según tu necesidad */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mat-list-base .mat-list-item{
+    height: 100px;
+  }
+  
+  .mat-icon{
+    height: fit-content;
+  }
